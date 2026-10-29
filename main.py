@@ -1,8 +1,27 @@
-from kivy.app import App
-from kivy.uix.label import Label
+import flet as ft
 
-class SupercoderApp(App):
-    def build(self):
-        return Label(text='Supercoder Academy\nPath 10 Hari Fullstack\n01 SuperLearning\n02 HTML\n03 CSS\n04 JS Dasar\n05 JS Lanjut\n\nBy Rafi Pamekasan')
+def main(page: ft.Page):
+    page.title = "Supercoder Academy"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.bgcolor = "#0F172A"
+    
+    page.add(
+        ft.Column(
+            [
+                ft.Text("Supercoder Academy", size=30, weight="bold", color="white"),
+                ft.Text("Path 10 Hari Fullstack", size=18, color="#38BDF8"),
+                ft.Divider(color="white"),
+                ft.Text("01 SuperLearning", color="white"),
+                ft.Text("02 HTML", color="white"),
+                ft.Text("03 CSS", color="white"),
+                ft.Text("04 JS Dasar", color="white"),
+                ft.Text("05 JS Lanjut", color="white"),
+                ft.Text("\nBy Rafi Pamekasan - Pamekasan", size=12, color="grey"),
+                ft.ElevatedButton("Mulai Belajar!", bgcolor="#38BDF8", color="black")
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+        )
+    )
 
-SupercoderApp().run()
+ft.app(target=main)
