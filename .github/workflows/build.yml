@@ -5,25 +5,23 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Python 3.10
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: Install System Dependencies
+      - name: Install Deps
         run: |
           sudo apt update
-          sudo apt install -y openjdk-17-jdk zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          pip install --upgrade pip
-          pip install buildozer cython==0.29.36 virtualenv
-
-      - name: Build APK with Buildozer
+          sudo apt install -y openjdk-17-jdk zip unzip
+          pip install buildozer cython==0.29.36
+      - name: Accept Licenses & Build
         run: |
+          # Paksa terima semua lisensi Android
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          yes | sdkmanager --licenses || true
+          # Baru build
           buildozer android debug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Supercoder-APK
           path: bin/*.apk
