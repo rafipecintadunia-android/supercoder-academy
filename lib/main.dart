@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 void main() => runApp(MaterialApp(home: SupercoderApp(), debugShowCheckedModeBanner: false));
-
 class SupercoderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,14 +25,13 @@ class SupercoderApp extends StatelessWidget {
     );
   }
 }
-
 class MateriPage extends StatelessWidget {
   final materi = [
     {"hari": "Hari 01", "judul": "SuperLearning", "desk": "Cara belajar cepat 10x, Mindset Programmer", "isi": "🔥 MINDSET PROGRAMMER\n\n1. Belajar itu bukan hafalan, tapi praktek\n2. 20% teori 80% ngoding\n3. Jangan takut error - error itu guru\n\nTUGAS HARI 01:\n- Install VS Code\n- Buat akun Github\n- Tulis target: Kenapa mau jadi programmer?"},
-    {"hari": "Hari 02", "judul": "HTML", "desk": "Struktur website, Tag, Form", "isi": "📄 HTML = Rangka Website\n\nTag penting:\n<html> <head> <body>\n<h1> Judul\n<p> Paragraf\n<a> Link\n<img> Gambar\n<form> Form\n\nCONTOH:\n<h1>Halo Rafi!</h1>\n<p>Ini website pertamaku</p>\n\nTUGAS:\nBikin file index.html dengan nama kamu!"},
-    {"hari": "Hari 03", "judul": "CSS", "desk": "Styling, Flexbox, Grid, Responsive", "isi": "🎨 CSS = Baju Website\n\ncolor: red;\nbackground: blue;\nFlexbox: display:flex;\nGrid: display:grid;\n\nTRIK KEREN:\n.center { display:flex; justify-content:center; align-items:center; }\n\nTUGAS:\nKasih warna background biru gelap kayak aplikasi ini!"},
-    {"hari": "Hari 04", "judul": "JS Dasar", "desk": "Variable, Function, DOM", "isi": "⚡ JS = Otak Website\n\nlet nama = 'Rafi';\nfunction sapa() { alert('Halo ' + nama); }\n\nDOM:\ndocument.getElementById('tombol').onclick = sapa;\n\nTUGAS:\nBikin tombol yang kalau diklik muncul 'Halo Pamekasan!'"},
-    {"hari": "Hari 05", "judul": "JS Lanjut", "desk": "Async, Fetch API, Project", "isi": "🚀 JS LANJUT = Website Hidup\n\nfetch('https://api.github.com/users/rafi')\n  .then(res => res.json())\n  .then(data => console.log(data))\n\nPROJECT AKHIR:\nBikin aplikasi to-do list!\n- Input tugas\n- Tombol tambah\n- List tugas bisa dihapus\n\nKamu udah jadi Fullstack Pemula!"},
+    {"hari": "Hari 02", "judul": "HTML", "desk": "Struktur website, Tag, Form", "isi": "📄 HTML = Rangka Website\n\nTag penting:\n<html> <head> <body>\n<h1> Judul\n<p> Paragraf\n<a> Link\n<img> Gambar\n<form> Form\n\nTUGAS:\nBikin file index.html dengan nama kamu!"},
+    {"hari": "Hari 03", "judul": "CSS", "desk": "Styling, Flexbox, Grid, Responsive", "isi": "🎨 CSS = Baju Website\n\ncolor: red;\nbackground: blue;\nFlexbox: display:flex;\nGrid: display:grid;\n\nTUGAS:\nKasih warna background biru gelap kayak aplikasi ini!"},
+    {"hari": "Hari 04", "judul": "JS Dasar", "desk": "Variable, Function, DOM", "isi": "⚡ JS = Otak Website\n\nlet nama = 'Rafi';\nfunction sapa() { alert('Halo ' + nama); }\n\nTUGAS:\nBikin tombol yang kalau diklik muncul 'Halo Pamekasan!'"},
+    {"hari": "Hari 05", "judul": "JS Lanjut", "desk": "Async, Fetch API, Project", "isi": "🚀 JS LANJUT = Website Hidup\n\nfetch('https://api.github.com/users/rafi')\n  .then(res => res.json())\n  .then(data => console.log(data))\n\nPROJECT AKHIR:\nBikin aplikasi to-do list!"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,7 +57,6 @@ class MateriPage extends StatelessWidget {
     );
   }
 }
-
 class DetailMateri extends StatelessWidget {
   final String judul, isi;
   DetailMateri({required this.judul, required this.isi});

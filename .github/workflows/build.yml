@@ -6,21 +6,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-        with: { flutter-version: '3.22.5' }
+        with:
+          channel: 'stable'
       - name: Install PIL
         run: pip install pillow
       - name: Generate Icon PNG
         run: |
           mkdir -p assets
           python gen_icon.py
-          cat assets/icon.png | head -c 10
-      - name: Setup Launcher Icons
-        run: |
-          flutter pub get
-          dart run flutter_launcher_icons
-      - name: Create Flutter Project + Build APK
+          ls -lh assets/icon.png
+      - name: Build APK with Icon
         run: |
           flutter create . --platforms=android --project-name supercoder_academy --org com.rafisupercoder
+          flutter pub add flutter_launcher_icons
+          printf '\nflutter_launcher_icons:\n  android: "launcher_icon"\n  image_path: "assets/icon.png"\n  min_sdk_android: 21\n' >> pubspec.yaml
+          flutter pub get
+          dart run flutter_launcher_icons
           flutter build apk --debug
       - uses: actions/upload-artifact@v4
-        with: { name: Supercoder-APK-JADI, path: build/app/outputs/flutter-apk/app-debug.apk }
+        with:
+          name: Supercoder-APK-JADI
+          path: build/app/outputs/flutter-apk/app-debug.apk

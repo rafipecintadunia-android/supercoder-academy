@@ -8,4 +8,4 @@ except:
   font = ImageFont.load_default()
 draw.text((512,520), "</>", fill=(15,23,42), font=font, anchor="mm")
 img.save("assets/icon.png")
-print("ICON JADI 1024x1024")
+print("ICON JADI")
