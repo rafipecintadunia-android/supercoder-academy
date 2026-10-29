@@ -5,23 +5,36 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      
+      - name: Setup Android SDK (Auto Accept License)
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install Deps
+
+      - name: Install Buildozer
         run: |
           sudo apt update
-          sudo apt install -y openjdk-17-jdk zip unzip
+          sudo apt install -y openjdk-17-jdk zip unzip libffi-dev libssl-dev
           pip install buildozer cython==0.29.36
-      - name: Accept Licenses & Build
+
+      - name: Build APK - FORCED SUCCESS
         run: |
-          # Paksa terima semua lisensi Android
           mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
+          echo "y" > ~/.android/repositories.cfg
+          # Paksa terima semua lisensi di semua lokasi SDK
           yes | sdkmanager --licenses || true
-          # Baru build
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          # Install manual build-tools yang diminta
+          sdkmanager "build-tools;33.0.2" "platforms;android-33" || true
+          # Build pakai build-tools yang udah lolos
           buildozer android debug
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: Supercoder-APK
           path: bin/*.apk
+          if-no-files-found: error
