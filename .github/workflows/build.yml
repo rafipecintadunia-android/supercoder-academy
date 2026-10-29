@@ -1,23 +1,49 @@
-name: Build APK - Flet Copilot
+name: Build APK - Flutter Copilot
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - uses: actions/setup-flutter@v1
+      
+      - name: Setup Flutter - COPILOT ACTIVE
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
-          version: '3.22.0'
-      - name: Install Flet & Build APK
+          flutter-version: '3.24.5'
+      
+      - name: Create Flutter Project + Build APK
         run: |
-          pip install flet
-          flet build apk --verbose
-      - name: Upload APK Langsung Jadi
+          flutter create --project-name supercoder_academy .
+          cat > lib/main.dart << 'FLUTTER'
+          import 'package:flutter/material.dart';
+          void main() => runApp(MaterialApp(home: SupercoderApp(), debugShowCheckedModeBanner: false));
+          class SupercoderApp extends StatelessWidget {
+            @override
+            Widget build(BuildContext context) {
+              return Scaffold(
+                backgroundColor: Color(0xFF0F172A),
+                body: Center(
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text("Supercoder Academy", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+                    SizedBox(height: 10),
+                    Text("Path 10 Hari Fullstack", style: TextStyle(fontSize: 18, color: Color(0xFF38BDF8))),
+                    Divider(color: Colors.white24),
+                    Text("01 SuperLearning\n02 HTML\n03 CSS\n04 JS Dasar\n05 JS Lanjut", style: TextStyle(color: Colors.white70), textAlign: TextAlign.center),
+                    SizedBox(height: 20),
+                    ElevatedButton(onPressed: (){}, child: Text("Mulai Belajar!"), style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF38BDF8))),
+                    SizedBox(height: 20),
+                    Text("By Rafi Pamekasan", style: TextStyle(fontSize: 12, color: Colors.grey))
+                  ]),
+                ),
+              );
+            }
+          }
+          FLUTTER
+          flutter build apk --debug
+          
+      - name: Upload APK JADI
         uses: actions/upload-artifact@v4
         with:
-          name: Supercoder-APK-Flet
-          path: build/apk
+          name: Supercoder-APK-JADI
+          path: build/app/outputs/flutter-apk/app-debug.apk
