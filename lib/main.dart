@@ -1,10 +1,184 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-void main()=>runApp(MaterialApp(home:Splash(),debugShowCheckedModeBanner:false));
-class Splash extends StatefulWidget{State<Splash> createState()=>_S();}
-class _S extends State<Splash>{void initState(){super.initState();Timer(Duration(seconds:3),(){Navigator.pushReplacement(context,MaterialPageRoute(builder:(_)=>Home()));});}Widget build(BuildContext c){return Scaffold(backgroundColor:Color(0xFF0F172A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(Icons.code,size:100,color:Color(0xFF38BDF8)),Text("Supercoder",style:TextStyle(fontSize:32,fontWeight:FontWeight.bold,color:Colors.white)),Text("Academy",style:TextStyle(fontSize:32,fontWeight:FontWeight.bold,color:Color(0xFF38BDF8))),Text("V16 Premium 50rb",style:TextStyle(color:Colors.white54)),SizedBox(height:30),CircularProgressIndicator(color:Color(0xFF38BDF8))])));}}
-class Home extends StatelessWidget{Widget build(BuildContext c){return Scaffold(backgroundColor:Color(0xFF0F172A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(Icons.workspace_premium,size:80,color:Color(0xFF38BDF8)),Text("Supercoder Academy",style:TextStyle(fontSize:28,fontWeight:FontWeight.bold,color:Colors.white)),Container(margin:EdgeInsets.only(top:8),padding:EdgeInsets.symmetric(horizontal:12,vertical:6),decoration:BoxDecoration(color:Colors.amber.withOpacity(0.2),borderRadius:BorderRadius.circular(20)),child:Text("PREMIUM 16.0 - 50RB",style:TextStyle(color:Colors.amber,fontSize:12,fontWeight:FontWeight.bold))),SizedBox(height:24),ElevatedButton(onPressed:()=>Navigator.push(c,MaterialPageRoute(builder:(_)=>Materi())),child:Text("Mulai Belajar!"),style:ElevatedButton.styleFrom(backgroundColor:Color(0xFF38BDF8))),SizedBox(height:12),ElevatedButton(onPressed:()=>Navigator.push(c,MaterialPageRoute(builder:(_)=>Quiz())),child:Text("Quiz + Sertifikat"),style:ElevatedButton.styleFrom(backgroundColor:Colors.amber))])));}}
-class Materi extends StatefulWidget{State<Materi> createState()=>_M();}
-class _M extends State<Materi>{bool premium=false;List<String> hari=["Hari 01","Hari 02","Hari 03","Hari 04","Hari 05","Hari 06","Hari 07","Hari 08","Hari 09","Hari 10"];List<String> judul=["SuperLearning","HTML","CSS","JS Dasar","JS Lanjut","Git Github","Tailwind","React Flutter","Firebase","Deploy Cuan"];List<String> desk=["Mindset 10x - FREE","Rangka Website - FREE","Flexbox Grid - FREE","Variable DOM - FREE","Fetch API Todo - FREE","Version Control - PREMIUM","CSS Cepat - PREMIUM","Framework - PREMIUM","Database - PREMIUM","Play Store - PREMIUM"];List<int> warna=[0xFF38BDF8,0xFFF97316,0xFF8B5CF6,0xFFFACC15,0xFF10B981,0xFFEF4444,0xFF06B6D4,0xFF3B82F6,0xFFF59E0B,0xFFEC4899];List<bool> free=[true,true,true,true,true,false,false,false,false,false];Widget build(BuildContext c){return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text(premium?"PREMIUM UNLOCKED":"FREE 5 HARI"),backgroundColor:Color(0xFF1E293B),actions:[IconButton(onPressed:(){setState(()=>premium=true);},icon:Icon(Icons.workspace_premium,color:Colors.amber))]),body:Column(children:[if(!premium)Container(width:double.infinity,color:Colors.amber,padding:EdgeInsets.all(8),child:Text("Hari 06-10 Terkunci - Klik mahkota kanan atas buat buka demo",style:TextStyle(color:Colors.black,fontSize:10),textAlign:TextAlign.center)),Expanded(child:ListView.builder(padding:EdgeInsets.all(12),itemCount:10,itemBuilder:(c,i){bool locked=!free[i]&&!premium;return Card(color:Color(0xFF1E293B),child:ListTile(leading:CircleAvatar(backgroundColor:Color(warna[i]),child:Text("${i+1}",style:TextStyle(color:Colors.black,fontWeight:FontWeight.bold))),title:Text("${hari[i]} - ${judul[i]}",style:TextStyle(color:Colors.white,fontSize:12)),subtitle:Text(desk[i],style:TextStyle(color:Colors.white70,fontSize:10)),trailing:Icon(locked?Icons.lock:Icons.play_arrow,color:Colors.white),onTap:locked?(){ScaffoldMessenger.of(c).showSnackBar(SnackBar(content:Text("Buka Premium 50rb dulu!")));}:(){ScaffoldMessenger.of(c).showSnackBar(SnackBar(content:Text("${judul[i]} Selesai")));}}));}]));}}
-class Quiz extends StatefulWidget{State<Quiz> createState()=>_Q();}
-class _Q extends State<Quiz>{int idx=0;int score=0;List<String> qs=["Tag HTML judul besar?","CSS tengah pakai?","JS simpan permanen?","Git push buat?","Firebase gunanya?","Tailwind itu?","React dibuat?","Deploy gratis pakai?","Cari client dimana?","Harga website?"];List<List<String>> ans=[["p","h1","div"],["flex","center","top"],["localStorage","var","log"],["Upload Github","Hapus","Download"],["Database gratis","Edit foto","Game"],["Framework CSS cepat","Bahasa","DB"],["Facebook","Google","Apple"],["Vercel","PS","Excel"],["Fiverr Sribulancer","Pasar","Kantor"],["500rb-2jt","10rb","Gratis"]];List<int> keys=[1,0,0,0,0,0,0,0,0,0];Widget build(BuildContext c){if(idx>=qs.length){bool lulus=score>=6;return Scaffold(backgroundColor:Color(0xFF0F172A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(lulus?Icons.emoji_events:Icons.replay,size:80,color:lulus?Colors.amber:Colors.white54),Text(lulus?"LULUS!":"Belum Lulus",style:TextStyle(fontSize:28,color:Colors.white)),Text("Score $score / ${qs.length}",style:TextStyle(color:Color(0xFF38BDF8))),if(lulus)Container(margin:EdgeInsets.all(20),padding:EdgeInsets.all(16),decoration:BoxDecoration(color:Color(0xFF1E293B),border:Border.all(color:Colors.amber,width:2),borderRadius:BorderRadius.circular(12)),child:Column(children:[Text("SERTIFIKAT KELULUSAN",style:TextStyle(color:Colors.amber,fontWeight:FontWeight.bold)),Text("Rafi Pamekasan",style:TextStyle(color:Color(0xFF38BDF8),fontSize:20,fontWeight:FontWeight.bold)),Text("Supercoder Academy 10 Hari",style:TextStyle(color:Colors.white70,fontSize:12))])),ElevatedButton(onPressed:(){setState((){idx=0;score=0;});},child:Text("Ulang Quiz"))])));}return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text("Quiz ${idx+1}/${qs.length} Score $score"),backgroundColor:Color(0xFF1E293B)),body:Padding(padding:EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(qs[idx],style:TextStyle(color:Colors.white,fontSize:20,fontWeight:FontWeight.bold)),SizedBox(height:20),Column(children:List.generate(ans[idx].length,(j){return Container(width:double.infinity,margin:EdgeInsets.only(bottom:10),child:ElevatedButton(onPressed:(){if(j==keys[idx])score++;setState(()=>idx++);},child:Text(ans[idx][j]),style:ElevatedButton.styleFrom(backgroundColor:Color(0xFF1E293B))));}))])));}}
+
+void main() {
+  runApp(MaterialApp(home: Splash(), debugShowCheckedModeBanner: false));
+}
+
+class Splash extends StatefulWidget {
+  State<Splash> createState() => _Splash();
+}
+class _Splash extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Home()));
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF0F172A),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.code, size: 100, color: Color(0xFF38BDF8)),
+            Text("Supercoder", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
+            Text("Academy", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
+            SizedBox(height: 10),
+            Text("V18 Premium 50rb", style: TextStyle(color: Colors.white54)),
+            SizedBox(height: 30),
+            CircularProgressIndicator(color: Color(0xFF38BDF8))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF0F172A),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.workspace_premium, size: 80, color: Color(0xFF38BDF8)),
+            Text("Supercoder Academy", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+            Container(
+              margin: EdgeInsets.only(top: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(color: Colors.amber.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
+              child: Text("PREMIUM 18.0 - 50RB", style: TextStyle(color: Colors.amber, fontSize: 12, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Materi())),
+              child: Text("Mulai Belajar!"),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF38BDF8)),
+            ),
+            SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Quiz())),
+              child: Text("Quiz + Sertifikat"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Materi extends StatefulWidget {
+  State<Materi> createState() => _Materi();
+}
+class _Materi extends State<Materi> {
+  bool premium = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF0F172A),
+      appBar: AppBar(
+        title: Text(premium ? "PREMIUM UNLOCKED" : "FREE 5 HARI"),
+        backgroundColor: Color(0xFF1E293B),
+        actions: [
+          IconButton(
+            onPressed: () { setState(() { premium = true; }); },
+            icon: Icon(Icons.workspace_premium, color: Colors.amber),
+          )
+        ],
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(12),
+        children: [
+          Container(width: double.infinity, color: Colors.amber, padding: EdgeInsets.all(8), child: Text("Hari 06-10 Terkunci - Klik mahkota kanan atas buat demo unlock", style: TextStyle(color: Colors.black, fontSize: 10), textAlign: TextAlign.center)),
+          SizedBox(height: 8),
+          cardMateri(1, "Hari 01 - SuperLearning", "Mindset 10x - FREE", Color(0xFF38BDF8), false),
+          cardMateri(2, "Hari 02 - HTML", "Rangka Website - FREE", Color(0xFFF97316), false),
+          cardMateri(3, "Hari 03 - CSS", "Flexbox Grid - FREE", Color(0xFF8B5CF6), false),
+          cardMateri(4, "Hari 04 - JS Dasar", "Variable DOM - FREE", Color(0xFFFACC15), false),
+          cardMateri(5, "Hari 05 - JS Lanjut", "Fetch API Todo - FREE", Color(0xFF10B981), false),
+          cardMateri(6, "Hari 06 - Git Github", "Version Control - PREMIUM", Color(0xFFEF4444), !premium),
+          cardMateri(7, "Hari 07 - Tailwind", "CSS Cepat - PREMIUM", Color(0xFF06B6D4), !premium),
+          cardMateri(8, "Hari 08 - React Flutter", "Framework - PREMIUM", Color(0xFF3B82F6), !premium),
+          cardMateri(9, "Hari 09 - Firebase", "Database - PREMIUM", Color(0xFFF59E0B), !premium),
+          cardMateri(10, "Hari 10 - Deploy Cuan", "Play Store - PREMIUM", Color(0xFFEC4899), !premium),
+        ],
+      ),
+    );
+  }
+  Widget cardMateri(int no, String title, String subtitle, Color warna, bool locked) {
+    return Card(
+      color: Color(0xFF1E293B),
+      child: ListTile(
+        leading: CircleAvatar(backgroundColor: warna, child: Text(no.toString(), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+        title: Text(title, style: TextStyle(color: Colors.white, fontSize: 12)),
+        subtitle: Text(subtitle, style: TextStyle(color: Colors.white70, fontSize: 10)),
+        trailing: Icon(locked ? Icons.lock : Icons.play_arrow, color: Colors.white),
+        onTap: () {
+          if (locked) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Buka Premium 50rb dulu!")));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(title + " Selesai")));
+          }
+        },
+      ),
+    );
+  }
+}
+
+class Quiz extends StatefulWidget {
+  State<Quiz> createState() => _Quiz();
+}
+class _Quiz extends State<Quiz> {
+  int idx = 0;
+  int score = 0;
+  List<String> qs = ["Tag HTML judul besar?", "CSS tengah pakai?", "JS simpan permanen?", "Git push buat?", "Firebase gunanya?", "Tailwind itu?", "React dibuat?", "Deploy gratis pakai?", "Cari client dimana?", "Harga website?"];
+  List<List<String>> ans = [["p", "h1", "div"], ["flex", "center", "top"], ["localStorage", "var", "log"], ["Upload Github", "Hapus", "Download"], ["Database gratis", "Edit foto", "Game"], ["Framework CSS cepat", "Bahasa", "DB"], ["Facebook", "Google", "Apple"], ["Vercel", "PS", "Excel"], ["Fiverr Sribulancer", "Pasar", "Kantor"], ["500rb-2jt", "10rb", "Gratis"]];
+  List<int> keys = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  @override
+  Widget build(BuildContext context) {
+    if (idx >= qs.length) {
+      bool lulus = score >= 6;
+      return Scaffold(
+        backgroundColor: Color(0xFF0F172A),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(lulus ? Icons.emoji_events : Icons.replay, size: 80, color: lulus ? Colors.amber : Colors.white54),
+              Text(lulus ? "LULUS!" : "Belum Lulus", style: TextStyle(fontSize: 28, color: Colors.white)),
+              Text("Score " + score.toString() + " / " + qs.length.toString(), style: TextStyle(color: Color(0xFF38BDF8))),
+              if (lulus) Container(margin: EdgeInsets.all(20), padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Color(0xFF1E293B), border: Border.all(color: Colors.amber, width: 2), borderRadius: BorderRadius.circular(12)), child: Column(children: [Text("SERTIFIKAT KELULUSAN", style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)), Text("Rafi Pamekasan", style: TextStyle(color: Color(0xFF38BDF8), fontSize: 20, fontWeight: FontWeight.bold)), Text("Supercoder Academy 10 Hari", style: TextStyle(color: Colors.white70, fontSize: 12))])),
+              ElevatedButton(onPressed: () { setState(() { idx = 0; score = 0; }); }, child: Text("Ulang Quiz"))
+            ],
+          ),
+        ),
+      );
+    }
+    return Scaffold(
+      backgroundColor: Color(0xFF0F172A),
+      appBar: AppBar(title: Text("Quiz " + (idx + 1).toString() + "/" + qs.length.toString() + " Score " + score.toString()), backgroundColor: Color(0xFF1E293B)),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(qs[idx], style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            ElevatedButton(onPressed: () { if (0 == keys[idx]) score++; setState(() { idx++; }); }, child: Text(ans[idx][0]), style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF1E293B))),
+            SizedBox(height: 10),
+            ElevatedButton(onPressed: () { if (1 == keys[idx]) score++; setState(() { idx++; }); }, child: Text(ans[idx][1]), style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF1E293B))),
+            SizedBox(height: 10),
+            ElevatedButton(onPressed: () { if (2 == keys[idx]) score++; setState(() { idx++; }); }, child: Text(ans[idx][2]), style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF1E293B))),
+          ],
+        ),
+      ),
+    );
+  }
+}
