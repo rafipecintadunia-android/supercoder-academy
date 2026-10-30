@@ -1,58 +1,36 @@
 import 'package:flutter/material.dart';
-void main()=>runApp(MaterialApp(debugShowCheckedModeBanner:false,home:MainPage()));
-class MainPage extends StatefulWidget{
-  @override State<MainPage> createState()=>_MainPageState();
+void main()=>runApp(MaterialApp(home:GabunganApp(),debugShowCheckedModeBanner:false));
+class GabunganApp extends StatefulWidget{ @override State<GabunganApp> createState()=>_GState();}
+class _GState extends State<GabunganApp>{
+ int idx=0;
+ final pages=[SupercoderApp(), QrisTab()];
+ @override Widget build(BuildContext c){return Scaffold(body:pages[idx], bottomNavigationBar:BottomNavigationBar(currentIndex:idx,onTap:(i)=>setState(()=>idx=i),backgroundColor:Color(0xFF1E293B),selectedItemColor:Color(0xFF38BDF8),unselectedItemColor:Colors.white54,items:[BottomNavigationBarItem(icon:Icon(Icons.school),label:'Academy 10 Hari'),BottomNavigationBarItem(icon:Icon(Icons.qr_code_2),label:'QRIS BU SINTA')]));}
 }
-class _MainPageState extends State<MainPage>{
-  int idx=0;
-  @override
-  Widget build(BuildContext c){
-    return Scaffold(
-      backgroundColor: Color(0xFF0F0F0F),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.white54,
-        currentIndex: idx,
-        onTap: (i)=>setState(()=>idx=i),
-        items:[
-          BottomNavigationBarItem(icon:Icon(Icons.school),label:"Academy"),
-          BottomNavigationBarItem(icon:Icon(Icons.qr_code),label:"QRIS BU SINTA"),
-        ],
-      ),
-      body: idx==0 ? AcademyPage() : QRISPage(),
-    );
-  }
+class SupercoderApp extends StatelessWidget{Widget build(BuildContext c){return Scaffold(backgroundColor:Color(0xFF0F172A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(Icons.workspace_premium,size:80,color:Color(0xFF38BDF8)),Text("Supercoder Academy",style:TextStyle(fontSize:28,fontWeight:FontWeight.bold,color:Colors.white)),Text("10 Hari Jadi Fullstack",style:TextStyle(fontSize:16,color:Color(0xFF38BDF8))),SizedBox(height:20),ElevatedButton(onPressed:()=>Navigator.push(c,MaterialPageRoute(builder:(_)=>MateriPage())),child:Text("Mulai Belajar!",style:TextStyle(fontSize:18,color:Colors.black,fontWeight:FontWeight.bold)),style:ElevatedButton.styleFrom(backgroundColor:Color(0xFF38BDF8),padding:EdgeInsets.symmetric(horizontal:50,vertical:16),shape:StadiumBorder())),SizedBox(height:10),TextButton(onPressed:()=>Navigator.push(c,MaterialPageRoute(builder:(_)=>QuizPage())),child:Text("Langsung Quiz Akhir",style:TextStyle(color:Colors.white54)))],)));}}
+class MateriPage extends StatelessWidget{
+ final materi=[
+{"hari":"Hari 01","judul":"SuperLearning","desk":"Mindset 10x","warna":0xFF38BDF8,"isi":"MINDSET 20 persen Teori 80 persen Praktek, Error=Guru. JADWAL 06-07 Teori, 19-22 Praktek. TUGAS TARGET.txt"},
+{"hari":"Hari 02","judul":"HTML","desk":"Rangka Website + Form WA","warna":0xFFF97316,"isi":"Tag h1-h6 p b i a img ul ol div header nav form. Form WA action wa.me. TUGAS Portfolio"},
+{"hari":"Hari 03","judul":"CSS","desk":"Flexbox Grid Dark Mode","warna":0xFF8B5CF6,"isi":"Flexbox display flex justify center. Grid 1fr 1fr 1fr. Template dark bg 0F172A card 1E293B"},
+{"hari":"Hari 04","judul":"JS Dasar","desk":"Variable DOM Event","warna":0xFFFACC15,"isi":"let const function arrow DOM querySelector getElementById innerText addEventListener click. TUGAS Input nama + Sapa + Jam digital"},
+{"hari":"Hari 05","judul":"JS Lanjut","desk":"Fetch API + Todo List","warna":0xFF10B981,"isi":"async await fetch localStorage setItem getItem. Project TODO list push array JSON stringify localStorage render."},
+{"hari":"Hari 06","judul":"Git Github Pro","desk":"Version Control","warna":0xFFEF4444,"isi":"git add commit push pull clone branch checkout merge. TUGAS Repo portfolio-raffi + Github Pages"},
+{"hari":"Hari 07","judul":"Tailwind CSS","desk":"CSS Tanpa Ngoding","warna":0xFF06B6D4,"isi":"Pakai class bg-slate-900 text-white p-4 rounded-xl. CDN tailwindcss.com. TUGAS Ubah portfolio pakai Tailwind"},
+{"hari":"Hari 08","judul":"React Flutter Lanjut","desk":"Framework Mahal","warna":0xFF3B82F6,"isi":"React npx create-react-app useState. Flutter setState. TUGAS React portfolio atau Dark Light mode"},
+{"hari":"Hari 09","judul":"Firebase","desk":"Database Gratis","warna":0xFFF59E0B,"isi":"Firestore Database Auth Google Hosting addDoc collection todos. TUGAS Ganti localStorage jadi Firebase"},
+{"hari":"Hari 10","judul":"Deploy Cuan","desk":"Play Store Freelance","warna":0xFFEC4899,"isi":"Vercel vercel --prod. Play Store build appbundle daftar 25 dollar. Cari client Fiverr Sribulancer DM UMKM Pamekasan"},
+ ];
+ Widget build(BuildContext context){return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text("10 Hari Fullstack - Rafi'"),backgroundColor:Color(0xFF1E293B)),body:ListView.builder(padding:EdgeInsets.all(12),itemCount:materi.length,itemBuilder:(c,i){return Card(color:Color(0xFF1E293B),margin:EdgeInsets.only(bottom:10),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),child:ListTile(leading:CircleAvatar(backgroundColor:Color(materi[i]['warna'] as int),child:Text("${i+1}",style:TextStyle(color:Colors.black,fontWeight:FontWeight.bold))),title:Text("${materi[i]['hari']} - ${materi[i]['judul']}",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:13)),subtitle:Text(materi[i]['desk']! as String,style:TextStyle(color:Colors.white70,fontSize:11)),onTap:()=>Navigator.push(c,MaterialPageRoute(builder:(_)=>DetailPage(judul:materi[i]['judul']! as String,isi:materi[i]['isi']! as String,warna:materi[i]['warna'] as int)))));});}
 }
-class AcademyPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext c){
-    return Center(child: Column(mainAxisAlignment:MainAxisAlignment.center,children:[
-      Icon(Icons.code,size:80,color:Colors.green),
-      SizedBox(height:20),
-      Text("SUPERCODER ACADEMY",style:TextStyle(color:Colors.white,fontSize:22,fontWeight:FontWeight.bold)),
-      SizedBox(height:10),
-      Text("Belajar coding dari 0 sampai jago",style:TextStyle(color:Colors.white54)),
-      SizedBox(height:30),
-      Padding(padding:EdgeInsets.all(20),child:Text("Ganti bagian ini dengan isi Academy kamu yang asli (kelas, materi, dll). QRIS ada di tab sebelah.",textAlign:TextAlign.center,style:TextStyle(color:Colors.white30))),
-    ]));
-  }
+class DetailPage extends StatelessWidget{
+ final String judul,isi; final int warna; DetailPage({required this.judul,required this.isi,required this.warna});
+ Widget build(BuildContext c){return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text(judul,style:TextStyle(fontSize:12)),backgroundColor:Color(0xFF1E293B)),body:SingleChildScrollView(padding:EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Container(padding:EdgeInsets.all(16),decoration:BoxDecoration(color:Color(0xFF1E293B),borderRadius:BorderRadius.circular(12)),child:Text(isi,style:TextStyle(color:Colors.white,fontSize:13,height:1.7))),SizedBox(height:20),SizedBox(width:double.infinity,child:ElevatedButton(onPressed:(){ScaffoldMessenger.of(c).showSnackBar(SnackBar(content:Text("$judul Selesai"),backgroundColor:Color(warna)));Navigator.pop(c);},child:Text("Selesai Lanjut",style:TextStyle(color:Colors.black,fontWeight:FontWeight.bold)),style:ElevatedButton.styleFrom(backgroundColor:Color(warna))))])));}
 }
-class QRISPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext c){
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Column(mainAxisAlignment:MainAxisAlignment.center,children:[
-          Text("BU SINTA PECEL PINCUK",style:TextStyle(fontWeight:FontWeight.bold,fontSize:18,color:Colors.black)),
-          Text("NMID ID1026475413104",style:TextStyle(color:Colors.black54)),
-          SizedBox(height:20),
-          Image.asset('assets/qris.png',width:320,height:450,fit:BoxFit.contain),
-          SizedBox(height:10),
-          Text("081949980384 - BISA BAYAR",style:TextStyle(color:Colors.green,fontWeight:FontWeight.bold)),
-        ]),
-      ),
-    );
-  }
+class QuizPage extends StatefulWidget{ _QuizPageState createState()=>_QuizPageState();}
+class _QuizPageState extends State<QuizPage>{int index=0,score=0;final quiz=[{"q":"Tag HTML untuk judul besar?","a":["p","h1","div","span"],"k":1},{"q":"CSS buat tengah pakai?","a":["center","flex","middle","align"],"k":1},{"q":"JS simpan data permanen?","a":["variable","localStorage","console.log","alert"],"k":1},{"q":"Git push buat?","a":["Hapus","Upload ke Github","Download","Bikin file"],"k":1},{"q":"Firebase gunanya?","a":["Edit foto","Database gratis","Main game","Desain"],"k":1},];Widget build(BuildContext c){if(index>=quiz.length){bool lulus=score>=3;return Scaffold(backgroundColor:Color(0xFF0F172A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(lulus?Icons.emoji_events:Icons.replay,size:100,color:lulus?Colors.amber:Colors.white54),SizedBox(height:20),Text(lulus?"LULUS!":"Belum Lulus",style:TextStyle(fontSize:32,fontWeight:FontWeight.bold,color:Colors.white)),Text("Score: $score / ${quiz.length}",style:TextStyle(fontSize:20,color:Color(0xFF38BDF8))),SizedBox(height:30),if(lulus)Container(margin:EdgeInsets.all(20),padding:EdgeInsets.all(20),decoration:BoxDecoration(color:Color(0xFF1E293B),borderRadius:BorderRadius.circular(16),border:Border.all(color:Colors.amber)),child:Column(children:[Text("SERTIFIKAT KELULUSAN",style:TextStyle(color:Colors.amber,fontWeight:FontWeight.bold,letterSpacing:2)),SizedBox(height:10),Text("Supercoder Academy",style:TextStyle(color:Colors.white,fontSize:20,fontWeight:FontWeight.bold)),SizedBox(height:6),Text("Diberikan kepada:",style:TextStyle(color:Colors.white70,fontSize:12)),Text("Rafi - Pamekasan",style:TextStyle(color:Color(0xFF38BDF8),fontSize:18,fontWeight:FontWeight.bold)),Text("Telah menyelesaikan 10 Hari Fullstack",textAlign:TextAlign.center,style:TextStyle(color:Colors.white70,fontSize:12))])),SizedBox(height:20),ElevatedButton(onPressed:(){setState((){index=0;score=0;});},child:Text(lulus?"Simpan Screenshot Sertifikat!":"Ulangi Quiz"),style:ElevatedButton.styleFrom(backgroundColor:Color(0xFF38BDF8))),)],)));}var q=quiz[index];return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text("Quiz ${index+1}/${quiz.length} - Score $score"),backgroundColor:Color(0xFF1E293B)),body:Padding(padding:EdgeInsets.all(20),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[LinearProgressIndicator(value:(index+1)/quiz.length,backgroundColor:Colors.white12,color:Color(0xFF38BDF8)),SizedBox(height:30),Text(q["q"] as String,style:TextStyle(color:Colors.white,fontSize:22,fontWeight:FontWeight.bold)),SizedBox(height:30),...(q["a"] as List<String>).asMap().entries.map((e)=>Container(margin:EdgeInsets.only(bottom:12),width:double.infinity,child:ElevatedButton(onPressed:(){if(e.key==q["k"]){score++;}setState((){index++;});},child:Text(e.value,style:TextStyle(fontSize:16)),style:ElevatedButton.styleFrom(backgroundColor:Color(0xFF1E293B),padding:EdgeInsets.symmetric(vertical:16),alignment:Alignment.centerLeft)))).toList(),],)));}}
+class QrisTab extends StatelessWidget{
+ const QrisTab({super.key});
+ @override Widget build(BuildContext c){
+  return Scaffold(backgroundColor:Color(0xFF0F172A),appBar:AppBar(title:Text("QRIS BU SINTA - BISA BAYAR",style:TextStyle(fontSize:14)),backgroundColor:Colors.green),body:Center(child:SingleChildScrollView(padding:EdgeInsets.all(20),child:Column(children:[Text("Toko Bu Sinta - Pamekasan",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:16)),Text("081949980384 - NMID ID1026475413104",style:TextStyle(color:Color(0xFF38BDF8),fontSize:12)),SizedBox(height:15),Container(padding:EdgeInsets.all(10),decoration:BoxDecoration(color:Colors.white,borderRadius:BorderRadius.circular(16)),child:Image.asset('assets/qris.png')),SizedBox(height:15),Text("Bisa GoPay DANA OVO LinkAja ShopeePay",style:TextStyle(color:Colors.white70,fontSize:12)),SizedBox(height:10),Text("QRIS 208K ASLI - Sudah Test Hijau V31 V33",style:TextStyle(color:Colors.green,fontSize:10))],),),),);
+ }
 }
