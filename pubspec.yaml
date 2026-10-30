@@ -1,0 +1,11 @@
+name: supercoder_academy
+description: V23 FINAL FIX 081949980384 SUCCESS
+publish_to: 'none'
+version: 1.0.0+23
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  uses-material-design: true
