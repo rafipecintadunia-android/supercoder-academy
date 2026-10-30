@@ -1,4 +1,4 @@
-name: Build APK Simple V24
+name: Build APK V29 QRIS ASLI
 on: [push]
 jobs:
   build:
@@ -9,14 +9,9 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - run: |
-          if [ ! -d "android" ]; then
-            flutter create . --platforms=android --project-name supercoder_academy --org com.supercoder.academy
-            echo "android folder recreated!"
-          fi
       - run: flutter pub get
-      - run: flutter build apk --debug
+      - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: Supercoder-APK-V27-FINAL-081949980384
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          name: Supercoder-APK-V29-QRIS-ASLI-BISA-BAYAR
+          path: build/app/outputs/flutter-apk/app-release.apk

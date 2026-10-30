@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 void main() => runApp(MaterialApp(home: MyApp(), debugShowCheckedModeBanner: false));
 class MyApp extends StatelessWidget {
   @override
@@ -11,9 +10,11 @@ class MyApp extends StatelessWidget {
           child: Text("Lihat QRIS 081949980384"),
           onPressed: () {
             showDialog(context: context, builder: (_) => AlertDialog(
-              title: Text("QRIS 081949980384"),
-              content: Container(width: 200, height: 200, color: Colors.white,
-                child: QrImageView(data: "081949980384", version: QrVersions.auto, size: 200)),
+              title: Text("BU SINTA PECEL PINCUK\nNMID: ID1026475413104", style: TextStyle(fontSize: 12)),
+              content: Container(
+                width: 300, height: 300, color: Colors.white,
+                child: Image.asset('assets/qris.png', fit: BoxFit.contain),
+              ),
               actions: [TextButton(child: Text("OK"), onPressed: ()=>Navigator.pop(context))],
             ));
           },
