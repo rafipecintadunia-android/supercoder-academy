@@ -1,7 +1,7 @@
 name: supercoder_academy
-description: V23 FINAL FIX 081949980384 SUCCESS
+description: V24 FINAL SUCCESS 081949980384
 publish_to: 'none'
-version: 1.0.0+23
+version: 1.0.0+24
 environment:
   sdk: '>=3.0.0 <4.0.0'
 dependencies:
