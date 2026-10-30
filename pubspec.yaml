@@ -1,7 +1,7 @@
 name: supercoder_academy
-description: QRIS BU SINTA
+description: QRIS BU SINTA BISA BAYAR
 publish_to: 'none'
-version: 1.0.0+29
+version: 1.0.0+31
 environment:
   sdk: '>=3.0.0 <4.0.0'
 dependencies:
