@@ -1,4 +1,4 @@
-name: Build APK V30 QRIS ASLI FIX
+name: Build APK V30 QRIS ASLI FIX GRADLE
 on: [push]
 jobs:
   build:
@@ -9,9 +9,22 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
+      - name: Fix Android Gradle - recreate if broken
+        run: |
+          echo "Checking android folder..."
+          ls -la android || echo "android missing"
+          # Backup lib and assets
+          cp lib/main.dart /tmp/main.dart.bak
+          cp pubspec.yaml /tmp/pubspec.yaml.bak || echo "no pubspec"
+          # Recreate android folder
+          flutter create . --platforms=android --org com.supercoder.academy --project-name supercoder_academy
+          # Restore
+          cp /tmp/main.dart.bak lib/main.dart
+          cp /tmp/pubspec.yaml.bak pubspec.yaml || echo "restore pubspec done"
+          ls -la android/app/
       - run: flutter pub get
-      - run: flutter build apk --release --split-per-abi
+      - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
           name: Supercoder-APK-V30-QRIS-BU-SINTA-BISA-BAYAR
-          path: build/app/outputs/flutter-apk/*release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
